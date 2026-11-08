@@ -4,7 +4,12 @@
 
 **Document scanner and PDF toolkit for Android: scan, extract text, compress, merge, split and convert, all on the device.**
 
+![Google Play: closed testing](https://img.shields.io/badge/Google_Play-Closed_testing-F59E0B?style=for-the-badge&logo=googleplay&logoColor=white)
+
+<!-- After public release, replace the badge above with:
 [![Get it on Google Play](https://img.shields.io/badge/Google_Play-Download-34A853?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.channabandara.smartscan)
+-->
+
 
 ![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)
@@ -26,7 +31,7 @@ SmartScan turns a phone into a pocket scanner and PDF workshop. You point the ca
 
 It was built around one rule: **your documents never leave your phone.** All processing happens on the device. There is no account, no cloud upload and no runtime permissions.
 
-**Contents:** [Scanning](#scanning) · [Tools](#six-document-tools) · [Files and settings](#files-settings-and-themes) · [Privacy](#privacy-by-design) · [Engineering](#engineering-highlights) · [Tech stack](#tech-stack) · [Architecture](#architecture) · [Versions](#version-history)
+**Contents:** [Scanning](#scanning) · [Tools](#six-document-tools) · [Files and settings](#files-settings-and-themes) · [Privacy](#privacy-by-design) · [Engineering](#engineering-highlights) · [Tech stack](#tech-stack) · [Architecture](#architecture)
 
 ---
 
@@ -68,15 +73,14 @@ In this test run, a 6-page PDF produced 2,496 words in 0.5 seconds. The text can
   </tr>
 </table>
 
-### Image to PDF and PDF to image
+### Image to PDF
 
 Page size can be Original, A4 or Letter, and quality can be Small, Medium or Large.
 
 <table>
   <tr>
-    <td align="center" width="33%"><img src="screenshots/13_image_to_pdf_setup.jpg" alt="Image to PDF options" /><br /><sub>Image to PDF: set the options</sub></td>
-    <td align="center" width="33%"><img src="screenshots/14_image_to_pdf_result.jpg" alt="Two photos as a two-page PDF" /><br /><sub>Image to PDF: open the result</sub></td>
-    <td align="center" width="33%"><img src="screenshots/15_pdf_to_image_result.jpg" alt="Images exported result screen" /><br /><sub>PDF to image: export the pages</sub></td>
+    <td align="center" width="33%"><img src="screenshots/13_image_to_pdf_setup.jpg" alt="Image to PDF options" /><br /><sub>Set the options</sub></td>
+    <td align="center" width="33%"><img src="screenshots/14_image_to_pdf_result.jpg" alt="Two photos as a two-page PDF" /><br /><sub>Open the result</sub></td>
   </tr>
 </table>
 
@@ -131,27 +135,7 @@ SmartScan hands each sensitive job to a system component, so it never has to sho
 
 ## Engineering Highlights
 
-### Reading-order text extraction
-
-ML Kit returns text blocks in detection order, which scrambles multi-column pages and tables. SmartScan reorders the blocks with a recursive **XY-cut**: it splits the page into horizontal bands, then into columns, and repeats. Each column is read top to bottom before moving to the next.
-
-```text
-Detected order             After XY-cut
-┌──────────────────┐       ┌──────────────────┐
-│        2         │       │        1         │  band
-├────────┬─────────┤       ├────────┬─────────┤
-│   5    │    1    │       │   2    │    5    │
-│   3    │    6    │  -->  │   3    │    6    │  columns
-│   7    │    4    │       │   4    │    7    │
-├────────┴─────────┤       ├────────┴─────────┤
-│        8         │       │        8         │  band
-└──────────────────┘       └──────────────────┘
-```
-
-<sub>Illustration of the algorithm, not captured app data.</sub>
-
-### Other highlights
-
+- **Reading-order text extraction.** ML Kit returns text blocks in detection order, which scrambles multi-column pages and tables. SmartScan reorders the blocks with a recursive **XY-cut**: it splits the page into horizontal bands, then into columns, and repeats. Each column is read top to bottom before moving to the next.
 - **Memory-friendly PDF viewing.** The app renders only small thumbnails for the page strip. Full-resolution pages are drawn on demand, one at a time, so a 100-page PDF never sits in memory all at once.
 - **Gesture-aware zoom.** A custom pinch, pan and double-tap zoom container works inside a swipeable pager. At 1× a swipe turns the page. Once you zoom in, the same drag pans the page instead.
 - **Intent handling.** The app handles `ACTION_VIEW` and `ACTION_SEND` for PDFs and images, and opens them in a standalone viewer with its own back behaviour.
@@ -192,19 +176,8 @@ app/
 
 ---
 
-## Version History
-
-| Version | Highlights |
-|---|---|
-| **1.3** | "Open with" and Share support, text extraction in the image viewer, pinch-to-zoom viewer, clearer names |
-| **1.2** | Image compression, 3-button navigation fix, supported-languages list |
-| **1.1** | Minimum supported version lowered to Android 10 |
-| **1.0** | First release: scanner and six document tools |
-
----
-
 ## Author
 
-**Channa Bandara**, Android developer
+**Channa Bandara**, Mobile Application Developer
 
 <sub>This repository is a project showcase. The app's source code is not included.</sub>
